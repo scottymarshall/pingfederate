@@ -41,3 +41,5 @@ Installs `standalone` version of pingfederate
 
 Author
 ======
+
+* Author: Scott Marshall (scott.marshall@johnmuirhealth.com)
