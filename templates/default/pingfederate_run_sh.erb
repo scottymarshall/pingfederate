@@ -1,0 +1,76 @@
+#!/bin/sh
+### ====================================================================== ###
+##                                                                          ##
+## PingFederate Startup Script                                              ##
+##                                                                          ##
+### ====================================================================== ###
+# Dropped off by CHEF!
+
+### $Id: run.sh,v 1.9.2.5 2004/01/01 01:20:38 starksm Exp $ ###
+
+DIRNAME=`dirname "$0"`
+
+cygwin=false;
+sunos=false;
+case "`uname`" in
+    CYGWIN*)
+        cygwin=true
+        ;;
+
+    SunOS*)
+        sunos=true
+        ;;
+esac
+
+# For Cygwin, ensure paths are in UNIX format before anything is touched
+if $cygwin ; then
+    [ -n "$PF_HOME" ] &&
+        PF_HOME=`cygpath --unix "$PF_HOME"`
+    [ -n "$JAVA_HOME" ] &&
+        JAVA_HOME=`cygpath --unix "$JAVA_HOME"`
+    [ -n "$JAVAC_JAR" ] &&
+        JAVAC_JAR=`cygpath --unix "$JAVAC_JAR"`
+fi
+
+# Setup PF_HOME
+if [ "x$PF_HOME" = "x" ]; then
+    # get the full path (without any relative bits)
+    PF_HOME=`cd "$DIRNAME/.."; pwd`
+fi
+export PF_HOME
+
+JAVA_FULL_VERSION=`"$JAVA_HOME/bin/java" -version 2>&1 | head -1 | cut -d '"' -f2`
+JAVA_MINOR_VERSION=`/bin/echo ${JAVA_FULL_VERSION} | cut -d "." -f2`
+
+if [ "$JAVA_MINOR_VERSION" -le "6" ]; then
+    /bin/echo "PingFederate must be run using Java 1.7 or higher.  Exiting."
+    exit 1
+fi
+
+# Check for currently running instance of PingFederate
+RUNFILE="$PF_HOME/bin/pingfederate.pid"
+if $sunos ; then
+    if [ ! -f "$RUNFILE" ] ; then
+        touch "$RUNFILE"
+        chmod 664 "$RUNFILE"
+    fi
+else
+    if [ ! -e "$RUNFILE" ] ; then
+        touch "$RUNFILE"
+        chmod 664 "$RUNFILE"
+    fi
+fi
+CURRENT_PID=`cat "$RUNFILE"`
+if [ -n "$CURRENT_PID" ] ; then
+    kill -0 $CURRENT_PID 2>/dev/null
+    if [ $? -eq 0 ] ; then
+        /bin/echo "Another PingFederate instance with pid $CURRENT_PID is already running. Exiting."
+        exit 0
+    fi
+fi
+
+# Execute the run.sh script
+/bin/echo "PingFederate is starting ..."
+sh "$PF_HOME/bin/run.sh" 1>/dev/null 2>/dev/null &
+status=$?
+exit $status
