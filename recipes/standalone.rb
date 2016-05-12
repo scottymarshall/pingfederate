@@ -28,7 +28,7 @@ execute 'change permissions' do
   action :run
 end
 
-link '/usr/local/pingfederate' do 
+link node['pingfed']['symbolic_install_path'] do 
   to "#{full_path}/pingfederate"
   link_type :symbolic
   action :create
