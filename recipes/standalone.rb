@@ -6,6 +6,7 @@ full_path = "#{node['pingfed']['install_dir']}/#{node['pingfed']['filename']}"
 user 'pingfederate' do
   shell '/bin/bash'
   action :create
+  manage_home true
 end
 
 remote_file 'pingfederate' do
