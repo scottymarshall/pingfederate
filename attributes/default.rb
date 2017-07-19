@@ -7,7 +7,7 @@ default['java']['oracle']['accept_oracle_download_terms'] = true
 default['pingfed']['install_dir'] = '/usr/local'
 default['pingfed']['symbolic_install_path'] = File.join(node['pingfed']['install_dir'],'pingfederate') 
 default['pingfed']['java_home'] = node['java']['java_home']
-default['pingfed']['version'] = '8.1.1'
+default['pingfed']['version'] = '8.4.0'
 default['pingfed']['filename'] = "pingfederate-" + node['pingfed']['version']
 default['pingfed']['download_url'] = "https://s3.amazonaws.com/pingone/public_downloads/pingfederate/" + 
                                       node['pingfed']['version'] + "/" + node['pingfed']['filename'] + ".tar.gz"
