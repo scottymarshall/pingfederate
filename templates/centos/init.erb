@@ -13,7 +13,7 @@ name=`basename $0`
 
 case "$1" in
     start)
-        <% if %x(rpm -qa | grep systemd ; echo $?).index('0') == 0 %>
+        <% if %x(rpm -qa | grep systemd) != '' %>
         echo "Redirecting to systemd"
         /usr/bin/systemctl start pingfederate
         <% else %>
@@ -21,7 +21,7 @@ case "$1" in
         <% end %>
     ;;
     stop)
-        <% if %x(rpm -qa | grep systemd ; echo $?).index('0') == 0 %>
+        <% if %x(rpm -qa | grep systemd) != '' %>
         echo "Redirecting to systemd"
         /usr/bin/systemctl stop pingfederate
         <% else %>    
@@ -29,7 +29,7 @@ case "$1" in
         <% end %>
     ;;
     restart)
-        <% if %x(rpm -qa | grep systemd ; echo $?).index('0') == 0 %>
+        <% if %x(rpm -qa | grep systemd) != '' %>
         echo "Redirecting to systemd"
         /usr/bin/systemctl stop pingfederate
         <% else %>       
@@ -39,7 +39,7 @@ case "$1" in
 	   <% end %>
     ;;
     status)
-        <% if %x(rpm -qa | grep systemd ; echo $?).index('0') == 0 %>
+        <% if %x(rpm -qa | grep systemd) != '' %>
         /usr/bin/systemctl status pingfederate
         echo "Redirecting to systemd"
         <% else %>       

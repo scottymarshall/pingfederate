@@ -91,7 +91,7 @@ systemd_service 'pingfederate' do
     group node['pingfed']['user']
     type 'forking'
   end
-  only_if { `rpm -qa | grep systemd ; echo $?`.index('0') == 0 } # systemd
+  only_if { `rpm -qa | grep systemd` != '' } # systemd
 end
 
 service 'pingfederate' do
