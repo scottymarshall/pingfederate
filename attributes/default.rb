@@ -12,5 +12,5 @@ default['pingfed']['download_url'] = 'https://s3.amazonaws.com/pingone/public_do
                                      node['pingfed']['version'] + '/' + node['pingfed']['filename'] + '.tar.gz'
 default['pingfed']['user'] = 'pingfederate'
 
-default['pingfed']['sbin_dir'] = File.join(node['pingfed']['install_dir'], node['pingfed']['filename'], 'sbin')
-default['pingfed']['bin_dir'] = File.join(node['pingfed']['install_dir'], node['pingfed']['filename'], 'bin')
+default['pingfed']['sbin_dir'] = File.join(node['pingfed']['install_dir'], node['pingfed']['filename'], 'pingfederate','sbin')
+default['pingfed']['bin_dir'] = File.join(node['pingfed']['install_dir'], node['pingfed']['filename'], 'pingfederate','bin')
