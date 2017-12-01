@@ -39,7 +39,12 @@ Installs `standalone` version of pingfederate
 
 Installs `standalone` version of pingfederate
 
+### oauth_settings
+
+Configures basic server settings via API calls, not called by default
+
 Author
 ======
 
 * Author: Scott Marshall (scott.marshall@johnmuirhealth.com)
+* Author: Melinda Moran (melinda.moran@johnmuirhealth.com)
