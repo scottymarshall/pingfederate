@@ -13,18 +13,41 @@ name=`basename $0`
 
 case "$1" in
     start)
+        <% if %x(rpm -qa | grep systemd) != '' %>
+        echo "Redirecting to systemd"
+        /usr/bin/systemctl start pingfederate
+        <% else %>
         su - $user -c $dir/pingfederate-run.sh
+        <% end %>
     ;;
     stop)
+        <% if %x(rpm -qa | grep systemd) != '' %>
+        echo "Redirecting to systemd"
+        /usr/bin/systemctl stop pingfederate
+        <% else %>    
         su - $user -c $dir/pingfederate-shutdown.sh
+        <% end %>
     ;;
     restart)
-    $0 stop
-    sleep 3
-    $0 start
+        <% if %x(rpm -qa | grep systemd) != '' %>
+        echo "Redirecting to systemd"
+        /usr/bin/systemctl stop pingfederate
+        <% else %>       
+	    $0 stop
+	    sleep 3
+	    $0 start
+	   <% end %>
+    ;;
+    status)
+        <% if %x(rpm -qa | grep systemd) != '' %>
+        /usr/bin/systemctl status pingfederate
+        echo "Redirecting to systemd"
+        <% else %>       
+	    echo "Status is not available on the OS"
+	   <% end %>
     ;;
     *)
-    echo "Usage: $0 {start|stop|restart}"
+    echo "Usage: $0 {start|stop|restart|status}"
     exit 1
     ;;
 esac

@@ -25,7 +25,7 @@ Attributes
 ==========
 * `node['pingfed']['install_dir']` - Install location, defaults to `/usr/local`
 * `node['pingfed']['java_home']` = Java Home for java running pingfederate, defaults to `node['java']['java_home']`
-* `node['pingfed']['version']` = '8.1.1'
+* `node['pingfed']['version']` = '8.4.0'
 * `node['pingfed']['user']` = 'pingfederate'
 
 Recipes
