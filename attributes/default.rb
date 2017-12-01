@@ -12,12 +12,11 @@ default['pingfed']['download_url'] = 'https://s3.amazonaws.com/pingone/public_do
                                      node['pingfed']['version'] + '/' + node['pingfed']['filename'] + '.tar.gz'
 default['pingfed']['user'] = 'pingfederate'
                                       
-# Used for default oauth_settings recipe
+default['pingfed']['sbin_dir'] = File.join(node['pingfed']['install_dir'], node['pingfed']['filename'], 'pingfederate','sbin')
+default['pingfed']['bin_dir'] = File.join(node['pingfed']['install_dir'], node['pingfed']['filename'], 'pingfederate','bin')
+
+# Used for oauth_settings recipe
 default['pingfed']['base_url'] = 'https://yourserverdomain.com'
 default['pingfed']['saml2_entry_id'] = 'yourpingfedserverid'
 default['pingfed']['admin_user'] = 'Administrator'
 default['pingfed']['admin_password'] = 'YourPassword'
-
-default['pingfed']['sbin_dir'] = File.join(node['pingfed']['install_dir'], node['pingfed']['filename'], 'pingfederate','sbin')
-default['pingfed']['bin_dir'] = File.join(node['pingfed']['install_dir'], node['pingfed']['filename'], 'pingfederate','bin')
-
