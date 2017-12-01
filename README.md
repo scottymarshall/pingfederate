@@ -50,7 +50,7 @@ Configures basic server settings via API calls, not called by default
 * FIRST time this cookbook is run it will not create the configuration as Pingfederate requires
   manuall intervention to create a user and password and set some default install parameters
 * SECOND time this cookbook runs, it will create the server_settings configuration from what you provide
-  and can be validated via API calls to https://localhost:9999/pf-admin-api/v1/serverSettings
+  and can be validated via API calls to https://localhost:9999/pf-admin-api/api-docs/#!/serverSettings
 
 Author
 ======
