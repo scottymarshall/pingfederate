@@ -94,6 +94,16 @@ systemd_service 'pingfederate' do
   only_if { `rpm -qa | grep systemd` != '' } # systemd
 end
 
+execute 'RESTART_WAIT_180' do
+  command 'sleep 180'
+  action :nothing
+end
+
 service 'pingfederate' do
-  action [:enable, :start]
+  action :enable
+end
+
+service 'pingfederate' do
+  action :start
+  notifies :run, 'execute[RESTART_WAIT_180]', :immediately
 end
