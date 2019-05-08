@@ -41,33 +41,38 @@ template "#{full_path}/pingfederate/bin/run.properties" do
   owner node['pingfed']['user']
   group node['pingfed']['user']
   variables(
-    admin_port: '9999',
-    bind_address: '0.0.0.0',
-    listen_port: '9031',
-    mode: 'STANDALONE'
+    admin_port: node['pingfed']['admin_port'],
+    bind_address: node['pingfed']['bind_address'],
+    listen_port: node['pingfed']['listen_port'],
+    mode: node['pingfed']['operational_mode']['standalone']
   )
   action :create
   notifies :restart, 'service[pingfederate]', :delayed
 end
 
 template "#{full_path}/pingfederate/bin/run.sh" do
+  cookbook node['pingfed']['run_template_cookbook']
   source 'run_sh.erb'
   owner node['pingfed']['user']
   group node['pingfed']['user']
   variables(
     java_home: node['pingfed']['java_home']
   )
-  action :create
+  action node['pingfed']['run_template']['action']
   notifies :restart, 'service[pingfederate]', :delayed
 end
 
 template "#{full_path}/pingfederate/sbin/pingfederate-run.sh" do
+  cookbook node['pingfed']['run_template']['cookbook']
   source 'pingfederate_run_sh.erb'
   owner node['pingfed']['user']
   group node['pingfed']['user']
   mode 0744
-  action :create
+  action node['pingfed']['run_template']['action']
   notifies :restart, 'service[pingfederate]', :delayed
+  variables(
+      java_home: node['pingfed']['java_home']
+  )
 end
 
 template '/etc/init.d/pingfederate' do
@@ -94,16 +99,16 @@ systemd_service 'pingfederate' do
   only_if { `rpm -qa | grep systemd` != '' } # systemd
 end
 
-execute 'RESTART_WAIT_180' do
-  command 'sleep 180'
+
+ruby_block 'PortOpen' do
+  block do
+    sleep 10
+    Chef::Application.fatal!("Port is not open") unless PingfedHelper.port_open?('localhost',9999, 10, 18)
+  end
   action :nothing
 end
 
 service 'pingfederate' do
-  action :enable
-end
-
-service 'pingfederate' do
-  action :start
-  notifies :run, 'execute[RESTART_WAIT_180]', :immediately
+  action [:enable, :start]
+  notifies :run, 'ruby_block[PortOpen]', :delayed
 end
