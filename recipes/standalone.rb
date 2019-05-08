@@ -91,7 +91,6 @@ systemd_service 'pingfederate' do
   service do
     exec_stop File.join(node['pingfed']['sbin_dir'], 'pingfederate-shutdown.sh')
     exec_start File.join(node['pingfed']['sbin_dir'], 'pingfederate-run.sh')
-    pid_file File.join(node['pingfed']['bin_dir'], 'pingfederate.pid')
     user node['pingfed']['user']
     group node['pingfed']['user']
     type 'forking'
