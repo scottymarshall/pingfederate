@@ -21,6 +21,7 @@ bin/*
 *.bak
 *.class
 *.elc
+*.idea
 *.ln
 *.log
 *.o

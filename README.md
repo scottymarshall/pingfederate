@@ -8,6 +8,8 @@ Usage
 Simply include the `pingfederate:standalone` recipe wherever you would like pingfederate installed, such as a run list (`recipe[pingfederate]`). 
 By default, the STANDALONE version is installed. 
 
+If you want to install a cluster, use `console_instance.rb` and `engine_instance.rb`.
+
 Examples
 ========
 
@@ -25,12 +27,13 @@ Attributes
 ==========
 * `node['pingfed']['install_dir']` - Install location, defaults to `/usr/local`
 * `node['pingfed']['java_home']` = Java Home for java running pingfederate, defaults to `node['java']['java_home']`
-* `node['pingfed']['version']` = '8.4.0'
+* `node['pingfed']['version']` = '9.2.2'
 * `node['pingfed']['user']` = 'pingfederate'
 * `node['pingfed']['admin_user']` = 'Administrator'
 * `node['pingfed']['admin_password']` = 'Some Password you manually set'
 * `node['pingfed']['base_url']` = 'https://yourserverdomain.com'
 * `node['pingfed']['saml2_entry_id']` = 'your_pingfed_serverid'
+* `node['pingfed']['cluster_host_array_override']` = if you dont want chef to find your nodes 
 
 
 Recipes

@@ -1,4 +1,8 @@
 
+# 0.3.0
+- move install into a resource
+- added `console_instance.rb` and `engine_instance.rb` to allow for clustering
+
 # 0.2.0
 - upgrade pingfed 9.2.2
 - change long wait to wait that port is open

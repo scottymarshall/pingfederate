@@ -7,7 +7,7 @@
 # Short-Description: Start daemon at boot time
 # Description:       Enable service provided by daemon.
 ### END INIT INFO
-dir="/usr/local/pingfederate/sbin/"
+dir="<%= @sbin_dir %>"
 user="pingfederate"
 name=`basename $0`
 
@@ -15,7 +15,7 @@ case "$1" in
     start)
         <% if %x(rpm -qa | grep systemd) != '' %>
         echo "Redirecting to systemd"
-        /usr/bin/systemctl start pingfederate
+        /usr/bin/systemctl start <%= @service_name %>
         <% else %>
         su - $user -c $dir/pingfederate-run.sh
         <% end %>
@@ -23,16 +23,16 @@ case "$1" in
     stop)
         <% if %x(rpm -qa | grep systemd) != '' %>
         echo "Redirecting to systemd"
-        /usr/bin/systemctl stop pingfederate
-        <% else %>    
+        /usr/bin/systemctl stop <%= @service_name %>
+        <% else %>
         su - $user -c $dir/pingfederate-shutdown.sh
         <% end %>
     ;;
     restart)
         <% if %x(rpm -qa | grep systemd) != '' %>
         echo "Redirecting to systemd"
-        /usr/bin/systemctl stop pingfederate
-        <% else %>       
+        /usr/bin/systemctl restart <%= @service_name %>
+        <% else %>
 	    $0 stop
 	    sleep 3
 	    $0 start
@@ -40,9 +40,9 @@ case "$1" in
     ;;
     status)
         <% if %x(rpm -qa | grep systemd) != '' %>
-        /usr/bin/systemctl status pingfederate
+        /usr/bin/systemctl status <%= @service_name %>
         echo "Redirecting to systemd"
-        <% else %>       
+        <% else %>
 	    echo "Status is not available on the OS"
 	   <% end %>
     ;;

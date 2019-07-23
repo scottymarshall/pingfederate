@@ -189,10 +189,10 @@ pf.operational.mode=<%= @mode %>
 
 # The following properties apply only if "pf.operational.mode"
 # is *not* STANDALONE:
-pf.cluster.node.index=
+pf.cluster.node.index=<%= @cluster_node_index %>
 # A strong, randomly-generated key (22 or more alphanumerics) is recommended.
-pf.cluster.auth.pwd=
-pf.cluster.encrypt=false
+pf.cluster.auth.pwd=<%= @cluster_password %>
+pf.cluster.encrypt=<%= @cluster_encrypt %>
 
 # Specify the key size to use with the AES encryption algorithm that is used
 # when encrypting communication among the cluster. The key sizes allowed
@@ -200,13 +200,13 @@ pf.cluster.encrypt=false
 # example, Oracle's Java Cryptography Extension (JCE) Unlimited Strength
 # provider supports 128, 192, and 256 bit key sizes.
 # Default is 128.
-pf.cluster.encryption.keysize=128
+pf.cluster.encryption.keysize=256
 
 # Specify the IP address for cluster communication, or leave as NON_LOOPBACK to
 # allow the system to choose an available non-loopback IP address.
-pf.cluster.bind.address=NON_LOOPBACK
-pf.cluster.bind.port=7600
-pf.cluster.failure.detection.bind.port=7700
+pf.cluster.bind.address=<%= @cluster_bind_address %>
+pf.cluster.bind.port=<%= @cluster_bind_port %>
+pf.cluster.failure.detection.bind.port=<%= @cluster_failure_port %>
 
 # Allowed values for the following properties are: tcp/udp. Default is tcp.
 # IMPORTANT: For UDP clustering with PingFederate running on Windows using ipv6.
@@ -226,7 +226,7 @@ pf.cluster.mcast.group.port=7601
 # discovery mechanisms are available. See server/default/conf/tcp.xml for
 # further details. If a dynamic discovery mechanism is used, this property
 # is ignored.
-pf.cluster.tcp.discovery.initial.hosts=
+pf.cluster.tcp.discovery.initial.hosts=<%= @cluster_initial_hosts %>
 
 # This property enables/disables adaptive clustering. Please see the
 # PingFederate clustering guide for more information on this capability.
