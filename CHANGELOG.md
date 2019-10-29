@@ -2,6 +2,7 @@
 # 0.3.0
 - move install into a resource
 - added `console_instance.rb` and `engine_instance.rb` to allow for clustering
+- added new exceptions to `port_open?`
 
 # 0.2.0
 - upgrade pingfed 9.2.2

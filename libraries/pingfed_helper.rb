@@ -16,7 +16,10 @@ module PingfedHelper
             TCPSocket.new(ip, port).close
             puts "[OPEN]: Port #{port} is open on host #{ip}"
             return true
-          rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, SocketError
+          rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ENETUNREACH, SocketError
+            next
+          rescue => error
+            puts "Caught a new one #{error.inspect}"
             next
           end
         end
