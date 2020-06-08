@@ -20,13 +20,10 @@ Chef 12+
 ### Platform
 * CentOS, RHEL
 
-### Coobooks
-* `java`
-
 Attributes
 ==========
 * `node['pingfed']['install_dir']` - Install location, defaults to `/usr/local`
-* `node['pingfed']['java_home']` = Java Home for java running pingfederate, defaults to `node['java']['java_home']`
+* `node['pingfed']['java_home']` = Java Home for java running pingfederate, defaults to `/usr/lib/jvm/java`
 * `node['pingfed']['version']` = '9.2.2'
 * `node['pingfed']['user']` = 'pingfederate'
 * `node['pingfed']['admin_user']` = 'Administrator'

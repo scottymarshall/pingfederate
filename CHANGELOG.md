@@ -1,4 +1,7 @@
 
+# 0.3.1
+- removed java from cookbook. a little too cumbersome to use the cookbooks to you just need to ensure it is installed and update the attribute, `['pingfed']['java_home']`
+
 # 0.3.0
 - move install into a resource
 - added `console_instance.rb` and `engine_instance.rb` to allow for clustering

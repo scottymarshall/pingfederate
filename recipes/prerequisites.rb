@@ -1,5 +1,3 @@
-include_recipe 'java'
-
 user 'pingfederate' do
   shell '/bin/bash'
   action :create
